@@ -1,5 +1,5 @@
 {
-  "deployment_id": "cloudguard-ec6e7b2cda276a36",
+  "deployment_id": "cloudguard-8ca8aef2f1b68ac1",
   "project_id": "cloudguard-495511",
   "gcp_project_id": "cloudguard-495511",
   "configuration": {
@@ -22,6 +22,7 @@
         "bigquery.googleapis.com",
         "logging.googleapis.com",
         "monitoring.googleapis.com",
+        "pubsub.googleapis.com",
         "storage.googleapis.com"
       ],
       "credentials_validated": true,
@@ -56,6 +57,7 @@
         "bigquery.googleapis.com",
         "logging.googleapis.com",
         "monitoring.googleapis.com",
+        "pubsub.googleapis.com",
         "storage.googleapis.com"
       ],
       "resource_configurations": {
@@ -186,6 +188,7 @@
           "bigquery.googleapis.com",
           "logging.googleapis.com",
           "monitoring.googleapis.com",
+          "pubsub.googleapis.com",
           "storage.googleapis.com"
         ]
       },
@@ -198,6 +201,7 @@
           "bigquery.googleapis.com",
           "logging.googleapis.com",
           "monitoring.googleapis.com",
+          "pubsub.googleapis.com",
           "storage.googleapis.com"
         ]
       },
@@ -210,6 +214,7 @@
           "bigquery.googleapis.com",
           "logging.googleapis.com",
           "monitoring.googleapis.com",
+          "pubsub.googleapis.com",
           "storage.googleapis.com"
         ]
       }
@@ -228,6 +233,28 @@
             "pubsub.googleapis.com"
           ]
         }
+      },
+      {
+        "status": "success",
+        "resource": "bigquery",
+        "details": {
+          "dataset_id": "cloudguard_audit_logscloud",
+          "table_expiry_days": 365,
+          "audit_log_types": [
+            "Data Read",
+            "Data Write",
+            "Admin Activity"
+          ],
+          "max_bytes_billed_gb": "10",
+          "authorised_views": [
+            "cloudguard:database.view1"
+          ],
+          "enable_anomaly_alerts": true,
+          "enabled_apis": [
+            "bigquery.googleapis.com",
+            "logging.googleapis.com"
+          ]
+        }
       }
     ],
     "notification_channels": {
@@ -239,8 +266,7 @@
     "security_command_center_enabled": true,
     "failed_resources": [
       "cloud_logging",
-      "cloud_monitoring",
-      "bigquery"
+      "cloud_monitoring"
     ]
   },
   "provisioning": {
@@ -304,17 +330,37 @@
             "pubsub.googleapis.com"
           ]
         }
+      },
+      {
+        "status": "success",
+        "resource": "bigquery",
+        "details": {
+          "dataset_id": "cloudguard_audit_logscloud",
+          "table_expiry_days": 365,
+          "audit_log_types": [
+            "Data Read",
+            "Data Write",
+            "Admin Activity"
+          ],
+          "max_bytes_billed_gb": "10",
+          "authorised_views": [
+            "cloudguard:database.view1"
+          ],
+          "enable_anomaly_alerts": true,
+          "enabled_apis": [
+            "bigquery.googleapis.com",
+            "logging.googleapis.com"
+          ]
+        }
       }
     ],
     "failed": [
       "cloud_logging",
-      "cloud_monitoring",
-      "bigquery"
+      "cloud_monitoring"
     ],
     "errors": {
-      "cloud_logging": "google-cloud-logging is not installed",
-      "cloud_monitoring": "google-cloud-monitoring is not installed",
-      "bigquery": "google-cloud-bigquery is not installed"
+      "cloud_logging": "module 'google.cloud.logging_v2' has no attribute 'ConfigServiceV2Client'",
+      "cloud_monitoring": "400 Field alert_policy.conditions[0].condition_threshold.filter had an invalid value of \"metric.type=\"compute.googleapis.com/instance/cpu/utilization\"\": must specify a restriction on \"resource.type\" in the filter; see \"https://cloud.google.com/monitoring/api/resources\" for a list of available resource types."
     },
     "monitoring_started": true
   }
