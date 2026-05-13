@@ -1,0 +1,142 @@
+{
+  "deployment_id": "cloudguard-96624549a167298b",
+  "project_id": "cloudguard-495511",
+  "gcp_project_id": "cloudguard-495511",
+  "configuration": {
+    "scope": {
+      "email": "darkeykafui@gmail.com",
+      "organization_id": null,
+      "cloud_platform": "Google Cloud Platform",
+      "selected_org": null,
+      "project_id": "cloudguard-495511",
+      "gcp_project_id": "cloudguard-495511",
+      "folders": [],
+      "projects": [
+        {
+          "project_id": "cloudguard-495511",
+          "project_name": "CloudGuard",
+          "selected": true
+        }
+      ],
+      "selected_resources": [
+        "bigquery.googleapis.com",
+        "logging.googleapis.com",
+        "monitoring.googleapis.com",
+        "storage.googleapis.com"
+      ],
+      "credentials_validated": true,
+      "quota_safe": true
+    },
+    "environment": "production",
+    "monitoring": {
+      "environment": "production",
+      "detection_sensitivity": "HIGH",
+      "threat_types": {
+        "anomalous_login": true,
+        "data_exfiltration": true,
+        "iam_escalation": false,
+        "bruteforce_detection": false
+      },
+      "baseline_period": "7 Days",
+      "enable_behavioral_analysis": true,
+      "enable_logging_sink": true,
+      "provisioned_resources": {
+        "enableCloudLogging": true,
+        "enableCloudMonitoring": true,
+        "enableSecurityCommandCenter": true,
+        "enableEventThreatDetection": false,
+        "enableCloudArmor": false,
+        "enableVpcFlowLogs": false,
+        "enableBigQuery": true
+      },
+      "monitored_project": "cloudguard-495511",
+      "project_id": "cloudguard-495511",
+      "gcp_project_id": "cloudguard-495511",
+      "monitored_resources": [
+        "bigquery.googleapis.com",
+        "logging.googleapis.com",
+        "monitoring.googleapis.com",
+        "storage.googleapis.com"
+      ],
+      "rules_applied": true
+    },
+    "alerts": {
+      "alert_thresholds": [
+        {
+          "severity": "critical"
+        },
+        {
+          "severity": "high"
+        }
+      ],
+      "sms_enabled": false,
+      "email_enabled": true,
+      "slack_enabled": false,
+      "sms_number": "",
+      "notification_email": "darkeykafui@gmail.com",
+      "slack_webhook": "",
+      "severity_routing": {
+        "critical": [
+          "sms",
+          "pagerduty"
+        ],
+        "high": [
+          "email",
+          "slack"
+        ],
+        "medium_low": [
+          "email"
+        ]
+      },
+      "enable_quiet_hours": true,
+      "quiet_hours_start": "22:00:00",
+      "quiet_hours_end": "08:00:00",
+      "settings_saved": true
+    }
+  },
+  "resources": {
+    "projects_monitored": 1,
+    "detection_rules": [
+      {
+        "project_id": "cloudguard-495511",
+        "threat_type": "anomalous_login",
+        "sensitivity": "HIGH",
+        "baseline_period": "7 Days",
+        "resources": [
+          "bigquery.googleapis.com",
+          "logging.googleapis.com",
+          "monitoring.googleapis.com",
+          "storage.googleapis.com"
+        ]
+      },
+      {
+        "project_id": "cloudguard-495511",
+        "threat_type": "data_exfiltration",
+        "sensitivity": "HIGH",
+        "baseline_period": "7 Days",
+        "resources": [
+          "bigquery.googleapis.com",
+          "logging.googleapis.com",
+          "monitoring.googleapis.com",
+          "storage.googleapis.com"
+        ]
+      }
+    ],
+    "provisioned_resources": {
+      "enableCloudLogging": true,
+      "enableCloudMonitoring": true,
+      "enableSecurityCommandCenter": true,
+      "enableEventThreatDetection": false,
+      "enableCloudArmor": false,
+      "enableVpcFlowLogs": false,
+      "enableBigQuery": true
+    },
+    "notification_channels": {
+      "email": true,
+      "sms": false,
+      "slack": false
+    },
+    "logging_sink_enabled": true,
+    "security_command_center_enabled": true
+  }
+}
