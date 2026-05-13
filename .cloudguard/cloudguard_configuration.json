@@ -1,5 +1,5 @@
 {
-  "deployment_id": "cloudguard-96624549a167298b",
+  "deployment_id": "cloudguard-ec6e7b2cda276a36",
   "project_id": "cloudguard-495511",
   "gcp_project_id": "cloudguard-495511",
   "configuration": {
@@ -34,7 +34,7 @@
       "threat_types": {
         "anomalous_login": true,
         "data_exfiltration": true,
-        "iam_escalation": false,
+        "iam_escalation": true,
         "bruteforce_detection": false
       },
       "baseline_period": "7 Days",
@@ -58,6 +58,86 @@
         "monitoring.googleapis.com",
         "storage.googleapis.com"
       ],
+      "resource_configurations": {
+        "enableCloudLogging": {
+          "logBucketName": "cloudguard-logs",
+          "retentionPeriod": "30",
+          "logTypes": [
+            "Admin Activity",
+            "Data Access"
+          ],
+          "filterExpression": "",
+          "bigQueryExport": "no",
+          "errorRateThreshold": "5"
+        },
+        "enableCloudMonitoring": {
+          "metricsScope": "project",
+          "anomalySensitivity": "medium",
+          "alertChannels": [
+            "Email",
+            "Slack"
+          ],
+          "thresholdDuration": "5",
+          "dashboardName": "",
+          "uptimeCheckInterval": "1"
+        },
+        "enableSecurityCommandCenter": {
+          "sccTier": "standard",
+          "notificationEmail": "darkeykafui@gmail.com",
+          "findingCategories": [
+            "Vulnerabilities",
+            "Misconfigurations"
+          ],
+          "autoMuteLowSeverity": "no",
+          "minimumSeverity": "high",
+          "pubSubExport": ""
+        },
+        "enableEventThreatDetection": {
+          "detectors": [
+            "Brute Force SSH",
+            "Cryptomining"
+          ],
+          "severityThreshold": "medium",
+          "notificationChannel": "email",
+          "notificationTarget": "",
+          "detectionHistoryDays": "90",
+          "customRuleJson": ""
+        },
+        "enableCloudArmor": {
+          "policyName": "",
+          "defaultRuleAction": "allow",
+          "owaspRules": [
+            "SQL Injection",
+            "XSS"
+          ],
+          "rateLimit": "1000",
+          "ipAllowlist": "",
+          "ipBlocklist": ""
+        },
+        "enableVpcFlowLogs": {
+          "targetSubnet": "all",
+          "aggregationInterval": "30s",
+          "samplingRate": "0.5",
+          "includeMetadata": "include",
+          "alertOn": [
+            "Lateral Movement",
+            "Unusual Egress"
+          ],
+          "logSink": "logging"
+        },
+        "enableBigQuery": {
+          "datasetId": "cloudguard_audit_logscloud",
+          "tableExpiry": "365",
+          "auditLogTypes": [
+            "Data Read",
+            "Data Write",
+            "Admin Activity"
+          ],
+          "queryAnomalyAlerts": "yes",
+          "maxBytesBilled": "10",
+          "authorisedViews": "cloudguard:database.view1"
+        }
+      },
       "rules_applied": true
     },
     "alerts": {
@@ -120,23 +200,122 @@
           "monitoring.googleapis.com",
           "storage.googleapis.com"
         ]
+      },
+      {
+        "project_id": "cloudguard-495511",
+        "threat_type": "iam_escalation",
+        "sensitivity": "HIGH",
+        "baseline_period": "7 Days",
+        "resources": [
+          "bigquery.googleapis.com",
+          "logging.googleapis.com",
+          "monitoring.googleapis.com",
+          "storage.googleapis.com"
+        ]
       }
     ],
-    "provisioned_resources": {
-      "enableCloudLogging": true,
-      "enableCloudMonitoring": true,
-      "enableSecurityCommandCenter": true,
-      "enableEventThreatDetection": false,
-      "enableCloudArmor": false,
-      "enableVpcFlowLogs": false,
-      "enableBigQuery": true
-    },
+    "provisioned_resources": [
+      {
+        "status": "success",
+        "resource": "security_command_center",
+        "details": {
+          "tier": "standard",
+          "pubsub_topic": "cloudguard-findings-cloudguard-495511",
+          "notification_filter": "severity >= \"HIGH\" AND (category=\"Vulnerabilities\" OR category=\"Misconfigurations\")",
+          "auto_mute_low_severity": false,
+          "enabled_apis": [
+            "securitycenter.googleapis.com",
+            "pubsub.googleapis.com"
+          ]
+        }
+      }
+    ],
     "notification_channels": {
       "email": true,
       "sms": false,
       "slack": false
     },
     "logging_sink_enabled": true,
-    "security_command_center_enabled": true
+    "security_command_center_enabled": true,
+    "failed_resources": [
+      "cloud_logging",
+      "cloud_monitoring",
+      "bigquery"
+    ]
+  },
+  "provisioning": {
+    "status": "partial",
+    "enabled_resources": {
+      "cloud_logging": {
+        "log_bucket_name": "cloudguard-logs",
+        "retention_days": "30",
+        "log_types": [
+          "Admin Activity",
+          "Data Access"
+        ],
+        "export_to_bigquery": "no",
+        "error_rate_threshold_pct": "5"
+      },
+      "cloud_monitoring": {
+        "metrics_scope": "project",
+        "anomaly_sensitivity": "medium",
+        "notification_channels": [
+          "Email",
+          "Slack"
+        ],
+        "threshold_breach_duration_mins": "5",
+        "uptime_check_interval_mins": "1",
+        "notification_email": "darkeykafui@gmail.com"
+      },
+      "security_command_center": {
+        "tier": "standard",
+        "notification_email": "darkeykafui@gmail.com",
+        "finding_categories": [
+          "Vulnerabilities",
+          "Misconfigurations"
+        ],
+        "auto_mute_low_severity": "no",
+        "min_severity": "high"
+      },
+      "bigquery": {
+        "dataset_id": "cloudguard_audit_logscloud",
+        "table_expiry_days": "365",
+        "audit_log_types": [
+          "Data Read",
+          "Data Write",
+          "Admin Activity"
+        ],
+        "enable_anomaly_alerts": "yes",
+        "max_bytes_billed_gb": "10",
+        "authorised_views": "cloudguard:database.view1"
+      }
+    },
+    "provisioned": [
+      {
+        "status": "success",
+        "resource": "security_command_center",
+        "details": {
+          "tier": "standard",
+          "pubsub_topic": "cloudguard-findings-cloudguard-495511",
+          "notification_filter": "severity >= \"HIGH\" AND (category=\"Vulnerabilities\" OR category=\"Misconfigurations\")",
+          "auto_mute_low_severity": false,
+          "enabled_apis": [
+            "securitycenter.googleapis.com",
+            "pubsub.googleapis.com"
+          ]
+        }
+      }
+    ],
+    "failed": [
+      "cloud_logging",
+      "cloud_monitoring",
+      "bigquery"
+    ],
+    "errors": {
+      "cloud_logging": "google-cloud-logging is not installed",
+      "cloud_monitoring": "google-cloud-monitoring is not installed",
+      "bigquery": "google-cloud-bigquery is not installed"
+    },
+    "monitoring_started": true
   }
 }
